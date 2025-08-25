@@ -18,7 +18,7 @@ Desculpa.ai é um site divertido onde você escreve qualquer situação e recebe
 - **Backend:** Go  
 - **Frontend:** HTML, CSS, JS (temas dark, light, Win95 e XP/Aero)  
 - **Modelo de IA:** Ollama (Gemma 1B)  
-- **Analytics:** Plausible com SQLite (leve e minimalista)  
+- **Analytics:** GoatCounter com SQLite (leve e minimalista)  
 - **Deployment:** Fly.io + Docker  
 
 ---

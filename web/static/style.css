@@ -1,11 +1,11 @@
-/* Reset básico */
+/* ---------------- BASIC RESET ---------------- */
 *, *::before, *::after {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
 }
 
-/* Corpo padrão */
+/* ---------------- BODY ---------------- */
 body {
   min-height: 100vh;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -18,7 +18,7 @@ body {
   transition: all 0.3s ease;
 }
 
-/* Navbar */
+/* ---------------- NAVBAR ---------------- */
 .navbar {
   width: 100%;
   padding: 12px 30px;
@@ -60,7 +60,7 @@ body {
   transition: all 0.2s ease;
 }
 
-/* Dark Gruvbox vibe */
+/* ---------------- THEME BUTTONS ---------------- */
 .dark-btn {
   background: #1d2021;
   color: #fabd2f;
@@ -72,7 +72,6 @@ body {
   background: #282828;
 }
 
-/* Light Gruvbox vibe */
 .light-btn {
   background: #f2e5bc;
   color: #3c3836;
@@ -84,7 +83,6 @@ body {
   background: #ebdbb2;
 }
 
-/* Win95 vibe retro */
 .win95-btn {
   background: #c0c0c0;
   border: 2px solid #fff;
@@ -98,7 +96,6 @@ body {
   box-shadow: inset 2px 2px #000;
 }
 
-/* XP / Vista Aero vibe */
 .xp-btn {
   background: linear-gradient(to bottom, #4facfe, #00f2fe);
   color: white;
@@ -112,12 +109,12 @@ body {
   background: linear-gradient(to bottom, #6fb1fc, #2ee8f9);
 }
 
-/* Container central */
+/* ---------------- CONTAINER ---------------- */
 .container {
   border-radius: 8px;
-  width: 60%;
-  max-width: 900px;
-  min-width: 450px;
+  width: 80%;
+  max-width: 1200px;
+  min-width: 500px;
   padding: 40px 30px;
   background-color: #3c3836dd;
   text-align: center;
@@ -129,9 +126,8 @@ body {
   transition: all 0.3s ease;
 }
 
-/* Títulos */
+/* ---------------- TYPOGRAPHY ---------------- */
 h1 {
-  font-family: inherit;
   font-weight: 600;
   margin-bottom: 20px;
   font-size: 3rem;
@@ -144,53 +140,51 @@ h2 {
   color: #ebdbb2;
 }
 
-/* Destaque de e-mail */
 .highlight-email {
   color: #b57614 !important;
   font-weight: 600 !important;
-  font-size: inherit !important;
-  font-family: inherit !important;
   text-decoration: underline !important;
-  line-height: inherit !important;
 }
 
-/* Prompt e input */
+/* ---------------- FORM ---------------- */
+#prompt-form {
+  width: 100%;
+}
+
 .prompt {
   width: 100%;
   display: flex;
-  gap: 10px;
-  align-items: center;
+  flex-direction: column;
+  gap: 12px;
+  align-items: stretch;
 }
 
 .prompt label {
   font-size: 1.25rem;
   font-weight: 500;
-  color: #ebdbb2;
-  margin-right: 8px;
-  min-width: 140px;
-  display: flex;
-  align-items: center;
+  margin-bottom: 4px;
 }
 
-.prompt input {
-  flex: 1;
-  padding: 8px 12px;
-  border-radius: 4px;
+.prompt textarea {
+  width: 100%;
+  min-height: 180px;
+  resize: vertical;
+  padding: 14px 16px;
+  border-radius: 8px;
   border: 2px solid #504945;
   font-size: 1.25rem;
   background-color: #282828;
   color: #ebdbb2;
   transition: all 0.3s ease;
+  line-height: 1.6;
 }
-
-.prompt input:focus {
+.prompt textarea:focus {
   outline: none;
   border-color: #fabd2f;
   box-shadow: 0 0 8px rgba(250, 189, 47, 0.3);
 }
 
-/* Botão enviar */
-/* Botão Enviar */
+/* ---------------- SUBMIT BUTTON ---------------- */
 .submit-btn {
   background-color: #fe8019;
   color: #1d2021;
@@ -202,14 +196,28 @@ h2 {
   cursor: pointer;
   transition: background 0.2s ease, transform 0.1s ease;
 }
-
 .submit-btn:hover {
-  background-color: #d65d0e; /* tom mais escuro */
+  background-color: #d65d0e;
   transform: scale(1.03);
 }
-
 .submit-btn:active {
   transform: scale(0.97);
+}
+
+/* ---------------- RESPONSE BOX ---------------- */
+#response-box {
+  margin-top: 20px;
+  width: 100%;
+  text-align: left;
+}
+#response-output {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  background: #282828;
+  padding: 12px;
+  border-radius: 6px;
+  min-height: 80px;
+  font-size: 1rem;
 }
 
 /* ---------------- FOOTER ---------------- */
@@ -239,7 +247,79 @@ h2 {
   text-decoration: none;
   transition: color 0.2s ease;
 }
-
 .footer-link:hover {
   color: #fe8019;
 }
+
+/* ---------------- RESPONSIVENESS ---------------- */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 20px;
+    gap: 10px;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .nav-links li a {
+    font-size: 1rem;
+  }
+
+  .theme-selector {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .theme-selector button {
+    flex: 1;
+    font-size: 0.9rem;
+    padding: 8px;
+  }
+
+  .container {
+    width: 95%;
+    min-width: unset;
+    padding: 20px;
+    gap: 16px;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1rem;
+  }
+
+  .prompt label {
+    font-size: 1rem;
+  }
+
+  .prompt textarea {
+    min-height: 120px;
+    font-size: 1rem;
+    padding: 10px;
+  }
+
+  .submit-btn {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 1.05rem;
+  }
+
+  .footer {
+    flex-direction: column;
+    gap: 6px;
+    font-size: 0.85rem;
+    text-align: center;
+    padding: 16px;
+  }
+}
+

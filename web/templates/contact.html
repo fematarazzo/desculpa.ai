@@ -16,14 +16,14 @@
 
     <div class="theme-selector">
       <button data-theme="dark" class="theme-btn dark-btn">Dark</button>
-      <button data-theme="light" class="theme-btn light-btn">Light</button>
-      <button data-theme="win95" class="theme-btn win95-btn">Win95</button>
-      <button data-theme="xp" class="theme-btn xp-btn">XP/Aero</button>
+      <button data-theme="light" class="theme-btn light-btn not-main-theme">Light</button>
+      <button data-theme="win95" class="theme-btn win95-btn not-main-theme">Win95</button>
+      <button data-theme="xp" class="theme-btn xp-btn not-main-theme">XP/Aero</button>
     </div>
   </nav>
 
   <div class="container">
-    <h1>Bem-vindo ao contato!</h1>
+    <h1>Fale com o desculpa.ai!</h1>
     <h2>Dúvidas ou críticas? Desculpa ai! Mande um e-mail para
       <a href="mailto:contato@desculpa.ai" class="highlight-email">contato@desculpa.ai</a>
     </h2>
@@ -40,10 +40,10 @@
 
   <script>
     const themes = {
-      dark: {body:'#1d2021', text:'#ebdbb2', navbar:'#3c3836', navText:'#ebdbb2', btn:'#fe8019'},
-      light: {body:'#f2e5bc', text:'#3c3836', navbar:'#ebdbb2', navText:'#3c3836', btn:'#c0c0c0'},
-      win95: {body:'#007f66', text:'#000', navbar:'#000080', navText:'#fff', btn:'#c0c0c0'},
-      xp: {body:'#d0e4f7', text:'#000', navbar:'#3b5998', navText:'#fff', btn:'#aaccee'}
+      dark: {body:'#1d2021', text:'#ebdbb2', notMainTheme: '#3c3836', navbar:'#3c3836', navText:'#ebdbb2', btn:'#fe8019', mainBtn: '#ebdbb2'},
+      light: {body:'#f2e5bc', text:'#3c3836', navbar:'#ebdbb2', navText:'#3c3836', btn:'#fe8019',mainBtn: '#3c3836' },
+      win95: {body:'#007f66', text:'#fff', navbar:'#000080', navText:'#fff', btn:'#c0c0c0', mainBtn: '#fff'},
+      xp: {body:'#d0e4f7', text:'#fff', navbar:'#3b5998', navText:'#fff', btn:'#aaccee', mainBtn: '#fff'}
     };
 
     function applyTheme(name){
@@ -53,6 +53,13 @@
       const nav = document.querySelector('.navbar');
       nav.style.backgroundColor = t.navbar;
       nav.querySelectorAll('a, button').forEach(el=>el.style.color=t.navText);
+      document.querySelectorAll('.not-main-theme').forEach(el => {
+        if (t.notMainTheme) { 
+          el.style.color = t.notMainTheme;
+        } else {
+          el.style.color = "";
+        }
+      });
       document.querySelectorAll('.submit-btn').forEach(el=>el.style.backgroundColor=t.btn);
       localStorage.setItem('theme', name);
     }
@@ -66,4 +73,3 @@
   </script>
 </body>
 </html>
-

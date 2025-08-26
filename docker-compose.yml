@@ -20,8 +20,8 @@ services:
     container_name: desculpaai
     depends_on:
       - ollama
-    environment:
-      - OLLAMA_URL=http://ollama:11434
+    env_file:
+      - .env
     ports:
       - "8080:8080"
     restart: unless-stopped

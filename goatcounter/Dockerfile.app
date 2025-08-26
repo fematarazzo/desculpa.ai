@@ -9,5 +9,5 @@ VOLUME /home/goatcounter/goatcounter-data
 
 EXPOSE 8080
 
-CMD ["goatcounter"]
+CMD ["serve"]
 

@@ -3,6 +3,7 @@
 package server
 
 import (
+	"bufio"
 	"bytes"
 	"encoding/json"
 	"fmt"
@@ -68,13 +69,16 @@ func handlerStream(w http.ResponseWriter, r *http.Request) {
 	prompt := r.PostForm.Get("prompt")
 
 	reqBody := map[string]any{
-		"model":  "gemma3:1b",
-		"prompt": prompt,
+		"model": "gemma3:1b",
+		"messages": []map[string]string{
+			{"role": "system", "content": systemPrompt},
+			{"role": "user", "content": prompt},
+		},
 		"stream": true,
 	}
 	b, _ := json.Marshal(reqBody)
 
-	resp, err := http.Post(ollamaURL+"/api/generate", "application/json", bytes.NewReader(b))
+	resp, err := http.Post(ollamaURL+"/api/chat", "application/json", bytes.NewReader(b))
 	if err != nil {
 		http.Error(w, "Ollama error: "+err.Error(), http.StatusInternalServerError)
 		return
@@ -91,16 +95,24 @@ func handlerStream(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	decoder := json.NewDecoder(resp.Body)
-	for {
-		var msg map[string]any
-		if err := decoder.Decode(&msg); err != nil {
-			break
+	scanner := bufio.NewScanner(resp.Body)
+	for scanner.Scan() {
+		line := scanner.Text()
+		if line == "" {
+			continue
 		}
 
-		if token, ok := msg["response"].(string); ok {
-			fmt.Fprintf(w, "%s", token)
-			flusher.Flush()
+		var msg map[string]any
+		if err := json.Unmarshal([]byte(line), &msg); err != nil {
+			fmt.Println("Decoding error:", err)
+			continue
+		}
+
+		if message, ok := msg["message"].(map[string]any); ok {
+			if content, ok := message["content"].(string); ok {
+				fmt.Fprintf(w, "%s", content)
+				flusher.Flush()
+			}
 		}
 
 		if done, ok := msg["done"].(bool); ok && done {

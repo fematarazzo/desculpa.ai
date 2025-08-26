@@ -1,4 +1,4 @@
-# fly.toml app configuration file generated for goatcounter-desculpa-ai on 2025-08-26T15:49:38-03:00
+# fly.toml app configuration file generated for goatcounter-desculpa-ai on 2025-08-26T16:09:02-03:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
@@ -7,7 +7,7 @@ app = 'goatcounter-desculpa-ai'
 primary_region = 'gru'
 
 [build]
-  dockerfile = 'goatcounter/docker-compose'
+  dockerfile = 'goatcounter/Dockerfile.app'
 
 [http_service]
   internal_port = 8080

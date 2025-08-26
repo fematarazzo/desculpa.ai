@@ -13,10 +13,14 @@ var (
 )
 
 func callOllama(prompt string) (string, error) {
-	body := map[string]string{
-		"model":  "gemma3:1b",
-		"prompt": systemPrompt + "\n\n" + prompt,
+	body := map[string]any{
+		"model": "gemma3:1b",
+		"messages": []map[string]string{
+			{"role": "system", "content": systemPrompt},
+			{"role": "user", "content": prompt},
+		},
 	}
+
 	b, _ := json.Marshal(body)
 
 	resp, err := http.Post(ollamaURL+"/api/generate", "application/json", bytes.NewReader(b))

@@ -1,0 +1,13 @@
+app = "goatcounter-desculpa-ai"
+primary_region = "gru"
+
+[http_service]
+internal_port = 8080
+force_https = true
+auto_start_machines = true
+auto_stop_machines = "stop"
+min_machines_running = 1
+
+[mounts]
+source = "goatcounter_data"
+destination = "/home/goatcounter/goatcounter-data"

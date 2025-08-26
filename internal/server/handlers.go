@@ -17,8 +17,8 @@ func registerRoutes(mux *http.ServeMux) {
 
 	mux.HandleFunc("GET /", handlerMain)
 	mux.HandleFunc("GET /contact", handlerContact)
-	mux.HandleFunc("POST /submit", handlerSubmit)
-	mux.HandleFunc("POST /stream", handlerStream)
+	mux.HandleFunc("POST /submit", rateLimitMiddleware(handlerSubmit))
+	mux.HandleFunc("POST /stream", rateLimitMiddleware(handlerStream))
 }
 
 func handlerMain(w http.ResponseWriter, r *http.Request) {

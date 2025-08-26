@@ -7,12 +7,15 @@ import (
 	"os"
 )
 
-var ollamaURL = os.Getenv("OLLAMA_URL")
+var (
+	ollamaURL    = os.Getenv("OLLAMA_URL")
+	systemPrompt = os.Getenv("SYSTEM_PROMPT")
+)
 
 func callOllama(prompt string) (string, error) {
 	body := map[string]string{
 		"model":  "gemma3:1b",
-		"prompt": prompt,
+		"prompt": systemPrompt + "\n\n" + prompt,
 	}
 	b, _ := json.Marshal(body)
 

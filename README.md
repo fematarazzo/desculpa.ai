@@ -28,7 +28,7 @@ Desculpa.ai é um site divertido onde você escreve qualquer situação e recebe
 1. Clone o repositório:
 
 ```bash
-git clone https://github.com/fematarazzo/desculpaai.git
+git clone https://github.com/fematarazzo/desculpa.ai.git
 cd desculpaai
 docker compose up --build
 ```

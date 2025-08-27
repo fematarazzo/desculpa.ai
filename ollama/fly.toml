@@ -1,23 +1,45 @@
-# fly.toml app configuration file generated for ollama-desculpa-ai on 2025-08-26T23:52:56-03:00
-#
-# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
-#
-
-app = 'ollama-desculpa-ai'
-primary_region = 'gru'
+app = "ollama-desculpa-ai"
+primary_region = "gru"
 
 [build]
-  dockerfile = './ollama/Dockerfile.app'
+dockerfile = "./ollama/Dockerfile.app"
 
-[http_service]
-  internal_port = 11434
-  force_https = true
-  auto_stop_machines = 'stop'
-  auto_start_machines = true
-  min_machines_running = 0
-  processes = ['app']
+[mounts]
+source = "ollama_data"
+destination = "/root/.ollama"
+
+[env]
+OLLAMA_HOST = "0.0.0.0:11434"
+
+[[services]]
+internal_port = 11434
+protocol = "tcp"
+processes = ["app"]
+
+[[services.ports]]
+handlers = []
+
+[checks]
+[checks.ollama]
+port = 11434
+type = "tcp"
+interval = "15s"
+timeout = "2s"
+
+[deploy]
+strategy = "rolling"
+
+[experimental]
+auto_rollback = true
+
+[processes]
+app = ""
+
+[scale]
+min = 1
+max = 3
 
 [[vm]]
-  memory = '4gb'
-  cpu_kind = 'shared'
-  cpus = 4
+memory = "4gb"
+cpu_kind = "shared"
+cpus = 4

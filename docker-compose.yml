@@ -1,30 +1,41 @@
 services:
   ollama:
-    image: ollama/ollama:latest
+    build:
+      context: ./
+      dockerfile: ./ollama/Dockerfile.app
     container_name: ollama
     ports:
       - "11434:11434"
     volumes:
       - ollama_data:/root/.ollama
     restart: unless-stopped
-    entrypoint: ["/bin/sh", "-c"]
-    command: >
-      "ollama serve & sleep 5 &&
-       ollama pull gemma3:1b &&
-       tail -f /dev/null"
 
-  app:
+  goatcounter:
     build:
-      context: .
-      dockerfile: docker/Dockerfile.app
+      context: ./
+      dockerfile: ./goatcounter/Dockerfile.app
+    container_name: goatcounter
+    ports:
+      - "8081:8080"
+    volumes:
+      - goatcounter_data:/home/goatcounter/goatcounter-data
+    restart: unless-stopped
+
+  desculpaai:
+    build:
+      context: ./
+      dockerfile: ./desculpa-ai/Dockerfile.app
     container_name: desculpaai
-    depends_on:
-      - ollama
     env_file:
       - .env
+    depends_on:
+      - ollama
     ports:
       - "8080:8080"
     restart: unless-stopped
+    environment:
+      PORT: 8080
 
 volumes:
   ollama_data:
+  goatcounter_data:

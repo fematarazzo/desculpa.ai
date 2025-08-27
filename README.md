@@ -30,4 +30,7 @@ Desculpa.ai é um site divertido onde você escreve qualquer situação e recebe
 ```bash
 git clone https://github.com/fematarazzo/desculpaai.git
 cd desculpaai
+docker compose up --build
+```
 
+2. Acesse localhost:8080

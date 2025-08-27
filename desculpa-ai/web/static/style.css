@@ -1,0 +1,325 @@
+/* ---------------- BASIC RESET ---------------- */
+*, *::before, *::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+/* ---------------- BODY ---------------- */
+body {
+  min-height: 100vh;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: #ebdbb2;
+  background-color: #1d2021;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 72px;
+  transition: all 0.3s ease;
+}
+
+/* ---------------- NAVBAR ---------------- */
+.navbar {
+  width: 100%;
+  padding: 12px 30px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+}
+
+.nav-links li a {
+  color: #ebdbb2;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1.05rem;
+  transition: color 0.2s ease;
+}
+
+.nav-links li a:hover {
+  color: #fabd2f;
+}
+
+/* ---------------- THEME SELECTOR ---------------- */
+.theme-selector button {
+  margin-left: 10px;
+  padding: 6px 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* ---------------- THEME BUTTONS ---------------- */
+.dark-btn {
+  background: #1d2021;
+  color: #fabd2f;
+  border: none;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+.dark-btn:hover {
+  background: #282828;
+}
+
+.light-btn {
+  background: #f2e5bc;
+  color: #3c3836;
+  border: none;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+.light-btn:hover {
+  background: #ebdbb2;
+}
+
+.win95-btn {
+  background: #c0c0c0;
+  border: 2px solid #fff;
+  border-right-color: #808080;
+  border-bottom-color: #808080;
+  font-family: "MS Sans Serif", sans-serif;
+  box-shadow: inset -1px -1px #000, inset 1px 1px #fff;
+  color: black;
+}
+.win95-btn:active {
+  box-shadow: inset 2px 2px #000;
+}
+
+.xp-btn {
+  background: linear-gradient(to bottom, #4facfe, #00f2fe);
+  color: white;
+  border: 1px solid #007acc;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+  font-family: "Segoe UI", sans-serif;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+}
+.xp-btn:hover {
+  background: linear-gradient(to bottom, #6fb1fc, #2ee8f9);
+}
+
+/* ---------------- CONTAINER ---------------- */
+.container {
+  border-radius: 8px;
+  width: 80%;
+  max-width: 1200px;
+  min-width: 500px;
+  padding: 40px 30px;
+  background-color: #3c3836dd;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  transition: all 0.3s ease;
+}
+
+/* ---------------- TYPOGRAPHY ---------------- */
+h1 {
+  font-weight: 600;
+  margin-bottom: 20px;
+  font-size: 3rem;
+  color: #fbf1c7;
+}
+
+h2 {
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: #ebdbb2;
+}
+
+.highlight-email {
+  color: #b57614 !important;
+  font-weight: 600 !important;
+  text-decoration: underline !important;
+}
+
+/* ---------------- FORM ---------------- */
+#prompt-form {
+  width: 100%;
+}
+
+.prompt {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: stretch;
+}
+
+.prompt label {
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.prompt textarea {
+  width: 100%;
+  min-height: 180px;
+  resize: vertical;
+  padding: 14px 16px;
+  border-radius: 8px;
+  border: 2px solid #504945;
+  font-size: 1.25rem;
+  background-color: #282828;
+  color: #ebdbb2;
+  transition: all 0.3s ease;
+  line-height: 1.6;
+}
+.prompt textarea:focus {
+  outline: none;
+  border-color: #fabd2f;
+  box-shadow: 0 0 8px rgba(250, 189, 47, 0.3);
+}
+
+/* ---------------- SUBMIT BUTTON ---------------- */
+.submit-btn {
+  background-color: #fe8019;
+  color: #1d2021;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+.submit-btn:hover {
+  background-color: #d65d0e;
+  transform: scale(1.03);
+}
+.submit-btn:active {
+  transform: scale(0.97);
+}
+
+/* ---------------- RESPONSE BOX ---------------- */
+#response-box {
+  margin-top: 20px;
+  width: 100%;
+  text-align: left;
+}
+#response-output {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  background: #282828;
+  padding: 12px;
+  border-radius: 6px;
+  min-height: 80px;
+  font-size: 1rem;
+}
+
+/* ---------------- FOOTER ---------------- */
+.footer {
+  width: 100%;
+  padding: 12px 30px;
+  background-color: #3c3836;
+  color: #ebdbb2;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 -2px 4px rgba(0,0,0,0.5);
+  font-size: 0.95rem;
+  z-index: 10;
+}
+
+.footer-text {
+  font-weight: 400;
+}
+
+.footer-link {
+  color: #fabd2f;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.footer-link:hover {
+  color: #fe8019;
+}
+
+/* ---------------- RESPONSIVENESS ---------------- */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 20px;
+    gap: 10px;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .nav-links li a {
+    font-size: 1rem;
+  }
+
+  .theme-selector {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .theme-selector button {
+    flex: 1;
+    font-size: 0.9rem;
+    padding: 8px;
+  }
+
+  .container {
+    width: 95%;
+    min-width: unset;
+    padding: 20px;
+    gap: 16px;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1rem;
+  }
+
+  .prompt label {
+    font-size: 1rem;
+  }
+
+  .prompt textarea {
+    min-height: 120px;
+    font-size: 1rem;
+    padding: 10px;
+  }
+
+  .submit-btn {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 1.05rem;
+  }
+
+  .footer {
+    flex-direction: column;
+    gap: 6px;
+    font-size: 0.85rem;
+    text-align: center;
+    padding: 16px;
+  }
+}
+

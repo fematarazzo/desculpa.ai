@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/fematarazzo/desculpaai/internal/server"
+	"github.com/fematarazzo/desculpaai/desculpa-ai/internal/server"
 )
 
 func main() {

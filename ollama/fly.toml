@@ -2,7 +2,7 @@ app = "ollama-desculpa-ai"
 primary_region = "gru"
 
 [build]
-dockerfile = "./ollama/Dockerfile.app"
+dockerfile = "./Dockerfile.app"
 
 [mounts]
 source = "ollama_data"
@@ -15,9 +15,6 @@ OLLAMA_HOST = "0.0.0.0:11434"
 internal_port = 11434
 protocol = "tcp"
 processes = ["app"]
-
-[[services.ports]]
-handlers = []
 
 [checks]
 [checks.ollama]

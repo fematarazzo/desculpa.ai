@@ -14,14 +14,13 @@
       <li>
         <a href="/">
           <img src="/static/images/desculpa-ai-icon.png" alt="desculpa.ai" style="height:24px; width:24px; vertical-align:middle;">
-          Home
         </a>
       </li>
       <li><a href="/contact">Contato</a></li>
     </ul>
 
     <div class="theme-selector">
-      <button data-theme="dark" class="theme-btn dark-btn">Dark</button>
+      <button data-theme="dark" class="theme-btn dark-btn main-theme">Dark</button>
       <button data-theme="light" class="theme-btn light-btn not-main-theme">Light</button>
       <button data-theme="win95" class="theme-btn win95-btn not-main-theme">Win95</button>
       <button data-theme="xp" class="theme-btn xp-btn not-main-theme">XP/Aero</button>
@@ -30,15 +29,15 @@
 
   <div class="container">
     <h1>Precisa de uma desculpa?<br> A gente inventa pra você 😅</h1>
-    <br>
     <form id="prompt-form" action="/submit" method="POST">
       <div class="prompt">
-        <textarea name="prompt" id="prompt" placeholder="Digite sua desculpa..." rows="5"></textarea>
+        <textarea name="prompt" id="prompt" placeholder="Digite sua desculpa..." rows="3"></textarea>
         <button type="submit" class="submit-btn">Enviar</button>
       </div>
     </form>
     <div id="response-box">
       <pre id="response-output"></pre>
+      <div id="spinner" class="hidden"></div>
     </div>
   </div>
 
@@ -54,15 +53,19 @@
   <script>
     const themes = {
       dark: {body:'#1d2021', text:'#ebdbb2', notMainTheme: '#3c3836', navbar:'#3c3836', navText:'#ebdbb2', btn:'#fe8019', mainBtn: '#ebdbb2'},
-      light: {body:'#f2e5bc', text:'#3c3836', navbar:'#ebdbb2', navText:'#3c3836', btn:'#fe8019',mainBtn: '#3c3836' },
-      win95: {body:'#007f66', text:'#fff', navbar:'#000080', navText:'#fff', btn:'#c0c0c0', mainBtn: '#fff'},
-      xp: {body:'#d0e4f7', text:'#fff', navbar:'#3b5998', navText:'#fff', btn:'#aaccee', mainBtn: '#fff'}
+      light: {body:'#f2e5bc', text:'#3c3836', mainTheme: '#ebdbb2', notMainTheme: '#3c3836', navbar:'#ebdbb2', navText:'#3c3836', btn:'#fe8019',mainBtn: '#3c3836' },
+      win95: {body:'#007f66', text:'#fff', notMainTheme: '#3c3836', navbar:'#000080', navText:'#fff', btn:'#c0c0c0', mainBtn: '#fff'},
+      xp: {body:'#d0e4f7', text:'#fff', notMainTheme: '#fff', navbar:'#3b5998', navText:'#fff', btn:'#aaccee', mainBtn: '#fff'}
     };
+
+    const spinner = document.getElementById('spinner');
+    const responseBox = document.getElementById('response-box');
 
     function applyTheme(name){
       const t = themes[name];
       document.body.style.backgroundColor = t.body;
       document.body.style.color = t.text;
+      spinner.style.borderTopColor = t.btn;
       const nav = document.querySelector('.navbar');
       nav.style.backgroundColor = t.navbar;
       nav.querySelectorAll('a, button').forEach(el=>el.style.color=t.navText);
@@ -72,7 +75,13 @@
         } else {
           el.style.color = "";
         }
-      });
+       document.querySelectorAll('.main-theme').forEach(el => {
+        if (t.MainTheme) { 
+          el.style.color = t.MainTheme;
+        } else {
+          el.style.color = "";
+        }
+      });     });
       document.querySelectorAll('.submit-btn').forEach(el=>el.style.backgroundColor=t.btn);
       localStorage.setItem('theme', name);
       const responseBox = document.getElementById('response-box');
@@ -113,6 +122,30 @@
         if (done) break;
         output.textContent += decoder.decode(value, { stream: true });
       }
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      output.textContent = "";
+      spinner.classList.remove('hidden');
+
+      const prompt = document.getElementById('prompt').value;
+      const res = await fetch('/stream', {
+        method: 'POST',
+        body: new URLSearchParams({ prompt })
+      });
+
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        output.textContent += decoder.decode(value, { stream: true });
+      }
+
+      spinner.classList.add('hidden');
     });
   </script>
   <script data-goatcounter="https://goatcounter.desculpa.ai/count" async src="//goatcounter.desculpa.ai/count.js"></script>

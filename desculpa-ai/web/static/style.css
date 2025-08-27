@@ -28,7 +28,6 @@ body {
   left: 0;
   display: flex;
   justify-content: space-between;
-  align-items: center;
   transition: all 0.3s ease;
   z-index: 10;
 }
@@ -37,6 +36,8 @@ body {
   list-style: none;
   display: flex;
   gap: 30px;
+  justify-content: center;
+  align-items: center;
 }
 
 .nav-links li a {
@@ -167,7 +168,7 @@ h2 {
 
 .prompt textarea {
   width: 100%;
-  min-height: 180px;
+  min-height: 120px;
   resize: vertical;
   padding: 14px 16px;
   border-radius: 8px;
@@ -209,6 +210,7 @@ h2 {
   margin-top: 20px;
   width: 100%;
   text-align: left;
+  position: relative;
 }
 #response-output {
   white-space: pre-wrap;
@@ -218,6 +220,29 @@ h2 {
   border-radius: 6px;
   min-height: 80px;
   font-size: 1rem;
+}
+
+#spinner {
+  border: 4px solid rgba(255, 255, 255, 0.2);
+  border-top: 4px solid #fe8019;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  animation: spin 1s linear infinite;
+  margin: 10px auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.hidden {
+  display: none;
+}
+
+@keyframes spin {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
 /* ---------------- FOOTER ---------------- */
@@ -254,35 +279,38 @@ h2 {
 /* ---------------- RESPONSIVENESS ---------------- */
 @media (max-width: 768px) {
   .navbar {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 10px 20px;
-    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    align-items: center;
+    padding: 6px 15px;
+    gap: 8px;
+    height: 48px;
   }
 
   .nav-links {
-    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
     gap: 12px;
-    width: 100%;
   }
 
   .nav-links li a {
-    font-size: 1rem;
+    font-size: 0.85rem;
   }
 
   .theme-selector {
     display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    width: 100%;
+    gap: 4px;
   }
 
   .theme-selector button {
-    flex: 1;
-    font-size: 0.9rem;
-    padding: 8px;
+    flex: unset;
+    font-size: 0.7rem;
+    padding: 4px 8px;
   }
 
+  /* Container */
   .container {
     width: 95%;
     min-width: unset;
@@ -291,7 +319,7 @@ h2 {
   }
 
   h1 {
-    font-size: 2rem;
+    font-size: 1.5rem;
   }
 
   h2 {
@@ -311,15 +339,25 @@ h2 {
   .submit-btn {
     width: 100%;
     padding: 0.8rem;
-    font-size: 1.05rem;
+    font-size: 1rem;
   }
 
   .footer {
-    flex-direction: column;
-    gap: 6px;
-    font-size: 0.85rem;
+    flex-direction: row;
+    justify-content: center;
+    gap: 4px;
+    font-size: 0.7rem;
     text-align: center;
-    padding: 16px;
+    padding: 8px 15px;
+    height: auto;
+  }
+
+  .footer-link {
+    font-size: 0.7rem;
+  }
+
+  #response-box {
+    font-size: 0.9rem;
   }
 }
 

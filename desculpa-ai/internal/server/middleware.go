@@ -16,7 +16,7 @@ var limiter = &rateLimiter{
 	clients: make(map[string]int),
 }
 
-const maxRequestsPerHour = 30
+const maxRequestsPerHour = 10
 
 func init() {
 	go func() {
@@ -45,7 +45,7 @@ func rateLimitMiddleware(next http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		ip, _, _ := net.SplitHostPort(r.RemoteAddr)
 		if !allowRequest(ip) {
-			http.Error(w, "Você atingiu o limite de 30 desculpas por hora. Volte mais tarde!", http.StatusTooManyRequests)
+			http.Error(w, "Você atingiu o limite de 10 desculpas por hora. Volte mais tarde!", http.StatusTooManyRequests)
 			return
 		}
 		next.ServeHTTP(w, r)

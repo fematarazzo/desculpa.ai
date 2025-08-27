@@ -1,0 +1,25 @@
+app = "desculpa-ai-ollama"
+primary_region = "gru"
+
+[build]
+dockerfile = "Dockerfile"
+
+[env]
+PORT = "11434"
+OLLAMA_HOME = "/root/.ollama"
+
+[http_service]
+internal_port = 11434
+force_https = false
+auto_start_machines = true
+auto_stop_machines = "stop"
+min_machines_running = 0
+
+[mounts]
+source = "ollama_models"
+destination = "/root/.ollama"
+
+[[vm]]
+memory = '4096mb'
+cpu_kind = 'shared'
+cpus = 2

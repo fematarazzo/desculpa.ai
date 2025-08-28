@@ -117,6 +117,7 @@ body {
   max-width: 1200px;
   min-width: 500px;
   padding: 40px 30px;
+  margin: 0px 0px 80px;
   background-color: #3c3836dd;
   text-align: center;
   box-shadow: 0 10px 25px rgba(0,0,0,0.4);

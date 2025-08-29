@@ -100,8 +100,8 @@
     const output = document.getElementById('response-output');
 
     form.addEventListener('submit', async (e) => {
-      e.preventDefault(); // não recarregar a página
-      output.textContent = ""; // limpa a resposta anterior
+      e.preventDefault();
+      output.textContent = "";
 
       const prompt = document.getElementById('prompt').value;
 

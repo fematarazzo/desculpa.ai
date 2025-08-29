@@ -71,11 +71,9 @@
       localStorage.setItem('theme', name);
     }
 
-    // Aplica o tema salvo ao carregar a página
     const saved = localStorage.getItem('theme');
     if(saved && themes[saved]) applyTheme(saved);
 
-    // Adiciona eventos de clique aos botões
     document.querySelectorAll('.theme-selector button').forEach(btn => {
       btn.addEventListener('click', () => applyTheme(btn.dataset.theme));
     });

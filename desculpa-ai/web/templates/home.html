@@ -21,10 +21,10 @@
     </ul>
 
     <div class="theme-selector">
-      <button data-theme="dark" class="theme-btn dark-btn main-theme">Dark</button>
-      <button data-theme="light" class="theme-btn light-btn not-main-theme">Light</button>
-      <button data-theme="win95" class="theme-btn win95-btn not-main-theme">Win95</button>
-      <button data-theme="xp" class="theme-btn xp-btn not-main-theme">XP/Aero</button>
+      <button data-theme="dark" class="theme-btn dark-btn">Dark</button>
+      <button data-theme="light" class="theme-btn light-btn">Light</button>
+      <button data-theme="win95" class="theme-btn win95-btn">Win95</button>
+      <button data-theme="xp" class="theme-btn xp-btn">XP/Aero</button>
     </div>
   </nav>
 
@@ -53,52 +53,47 @@
 
   <script>
     const themes = {
-      dark: {body:'#1d2021', text:'#ebdbb2', notMainTheme: '#3c3836', navbar:'#3c3836', navText:'#ebdbb2', btn:'#fe8019', mainBtn: '#ebdbb2'},
-      light: {body:'#f2e5bc', text:'#3c3836', mainTheme: '#ebdbb2', notMainTheme: '#3c3836', navbar:'#ebdbb2', navText:'#3c3836', btn:'#fe8019',mainBtn: '#3c3836' },
-      win95: {body:'#007f66', text:'#fff', notMainTheme: '#3c3836', navbar:'#000080', navText:'#fff', btn:'#c0c0c0', mainBtn: '#fff'},
-      xp: {body:'#d0e4f7', text:'#fff', notMainTheme: '#fff', navbar:'#3b5998', navText:'#fff', btn:'#aaccee', mainBtn: '#fff'}
+      dark: { body:'#1d2021', text:'#ebdbb2', navbar:'#3c3836', navText:'#ebdbb2', btn:'#fe8019' },
+      light: { body:'#f2e5bc', text:'#3c3836', navbar:'#ebdbb2', navText:'#3c3836', btn:'#fe8019' },
+      win95: { body:'#007f66', text:'#fff', navbar:'#000080', navText:'#fff', btn:'#c0c0c0' },
+      xp: { body:'#d0e4f7', text:'#fff', navbar:'#3b5998', navText:'#fff', btn:'#aaccee' }
     };
 
     const spinner = document.getElementById('spinner');
     const responseBox = document.getElementById('response-box');
+    const responseOutput = document.getElementById('response-output');
 
-    function applyTheme(name){
+    function applyTheme(name) {
       const t = themes[name];
+
       document.body.style.backgroundColor = t.body;
       document.body.style.color = t.text;
       spinner.style.borderTopColor = t.btn;
+
       const nav = document.querySelector('.navbar');
       nav.style.backgroundColor = t.navbar;
-      nav.querySelectorAll('a, button').forEach(el=>el.style.color=t.navText);
-      document.querySelectorAll('.not-main-theme').forEach(el => {
-        if (t.notMainTheme) { 
-          el.style.color = t.notMainTheme;
-        } else {
-          el.style.color = "";
-        }
-       document.querySelectorAll('.main-theme').forEach(el => {
-        if (t.MainTheme) { 
-          el.style.color = t.MainTheme;
-        } else {
-          el.style.color = "";
-        }
-      });     });
-      document.querySelectorAll('.submit-btn').forEach(el=>el.style.backgroundColor=t.btn);
-      localStorage.setItem('theme', name);
-      const responseBox = document.getElementById('response-box');
-      const responseOutput = document.getElementById('response-output');
-      if (responseBox && responseOutput) {
+      nav.querySelectorAll('a, button').forEach(el => el.style.color = t.navText);
+
+      document.querySelectorAll('.submit-btn').forEach(el => el.style.backgroundColor = t.btn);
+
       responseBox.style.color = t.text;
       responseOutput.style.backgroundColor = t.navbar;
       responseOutput.style.color = t.text;
+
+      if(name === "win95") {
+        document.body.classList.add("win95-font");
+      } else {
+        document.body.classList.remove("win95-font");
       }
+
+      localStorage.setItem('theme', name);
     }
 
     const saved = localStorage.getItem('theme');
-    if(saved && themes[saved]) applyTheme(saved);
+    if (saved && themes[saved]) applyTheme(saved);
 
-    document.querySelectorAll('.theme-selector button').forEach(btn=>{
-      btn.onclick = ()=> applyTheme(btn.dataset.theme);
+    document.querySelectorAll('.theme-selector button').forEach(btn => {
+      btn.addEventListener('click', () => applyTheme(btn.dataset.theme));
     });
 
     const form = document.getElementById('prompt-form');

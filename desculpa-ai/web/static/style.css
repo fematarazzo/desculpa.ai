@@ -64,7 +64,7 @@ body {
 /* ---------------- THEME BUTTONS ---------------- */
 .dark-btn {
   background: #1d2021;
-  color: #fabd2f;
+  color: #fe8019 !important;
   border: none;
   border-radius: 6px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.3);
@@ -75,7 +75,7 @@ body {
 
 .light-btn {
   background: #f2e5bc;
-  color: #3c3836;
+  color: #3c3836 !important;
   border: none;
   border-radius: 6px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.3);
@@ -91,15 +91,29 @@ body {
   border-bottom-color: #808080;
   font-family: "MS Sans Serif", sans-serif;
   box-shadow: inset -1px -1px #000, inset 1px 1px #fff;
-  color: black;
+  color: black !important;
 }
 .win95-btn:active {
   box-shadow: inset 2px 2px #000;
 }
 
+@font-face {
+  font-family: 'Fixedsys';
+  src: url('/static/fonts/Fixedsys.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.win95-font h1,
+.win95-font h2,
+.win95-font .navbar,
+.win95-font .footer {
+  font-family: 'Fixedsys', "MS Sans Serif", Tahoma, sans-serif !important;
+}
+
 .xp-btn {
   background: linear-gradient(to bottom, #4facfe, #00f2fe);
-  color: white;
+  color: #fff !important;
   border: 1px solid #007acc;
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.4);

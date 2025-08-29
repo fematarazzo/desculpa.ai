@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="/static/images/desculpa-ai-icon.png">
   <title>Desculpa.ai 🤖💨</title>
   <meta name="description" content="O Desculpa.ai é um assistente especializado em inventar desculpas criativas, engraçadas e convincentes para qualquer situação. Com humor e sarcasmo, ele te ajuda a sair de qualquer aperto.">
   <link href="/static/style.css" rel="stylesheet">
@@ -21,9 +22,9 @@
 
     <div class="theme-selector">
       <button data-theme="dark" class="theme-btn dark-btn">Dark</button>
-      <button data-theme="light" class="theme-btn light-btn not-main-theme">Light</button>
-      <button data-theme="win95" class="theme-btn win95-btn not-main-theme">Win95</button>
-      <button data-theme="xp" class="theme-btn xp-btn not-main-theme">XP/Aero</button>
+      <button data-theme="light" class="theme-btn light-btn">Light</button>
+      <button data-theme="win95" class="theme-btn win95-btn">Win95</button>
+      <button data-theme="xp" class="theme-btn xp-btn">XP/Aero</button>
     </div>
   </nav>
 
@@ -45,35 +46,38 @@
 
   <script>
     const themes = {
-      dark: {body:'#1d2021', text:'#ebdbb2', notMainTheme: '#3c3836', navbar:'#3c3836', navText:'#ebdbb2', btn:'#fe8019', mainBtn: '#ebdbb2'},
-      light: {body:'#f2e5bc', text:'#3c3836', navbar:'#ebdbb2', navText:'#3c3836', btn:'#fe8019',mainBtn: '#3c3836' },
-      win95: {body:'#007f66', text:'#fff', navbar:'#000080', navText:'#fff', btn:'#c0c0c0', mainBtn: '#fff'},
-      xp: {body:'#d0e4f7', text:'#fff', navbar:'#3b5998', navText:'#fff', btn:'#aaccee', mainBtn: '#fff'}
+      dark: { body:'#1d2021', text:'#ebdbb2', navbar:'#3c3836', navText:'#ebdbb2', btn:'#fe8019' },
+      light: { body:'#f2e5bc', text:'#3c3836', navbar:'#ebdbb2', navText:'#3c3836', btn:'#fe8019' },
+      win95: { body:'#007f66', text:'#fff', navbar:'#000080', navText:'#fff', btn:'#c0c0c0' },
+      xp: { body:'#d0e4f7', text:'#fff', navbar:'#3b5998', navText:'#fff', btn:'#aaccee' }
     };
 
-    function applyTheme(name){
+    function applyTheme(name) {
       const t = themes[name];
       document.body.style.backgroundColor = t.body;
       document.body.style.color = t.text;
+
       const nav = document.querySelector('.navbar');
-      nav.style.backgroundColor = t.navbar;
-      nav.querySelectorAll('a, button').forEach(el=>el.style.color=t.navText);
-      document.querySelectorAll('.not-main-theme').forEach(el => {
-        if (t.notMainTheme) { 
-          el.style.color = t.notMainTheme;
-        } else {
-          el.style.color = "";
-        }
-      });
-      document.querySelectorAll('.submit-btn').forEach(el=>el.style.backgroundColor=t.btn);
+      if(nav) {
+        nav.style.backgroundColor = t.navbar;
+        nav.querySelectorAll('a, button').forEach(el => el.style.color = t.navText);
+      }
+
+      document.querySelectorAll('.submit-btn').forEach(el => el.style.backgroundColor = t.btn);
+
+      if(name === "win95") document.body.classList.add("win95-font");
+      else document.body.classList.remove("win95-font");
+
       localStorage.setItem('theme', name);
     }
 
+    // Aplica o tema salvo ao carregar a página
     const saved = localStorage.getItem('theme');
     if(saved && themes[saved]) applyTheme(saved);
 
-    document.querySelectorAll('.theme-selector button').forEach(btn=>{
-      btn.onclick = ()=> applyTheme(btn.dataset.theme);
+    // Adiciona eventos de clique aos botões
+    document.querySelectorAll('.theme-selector button').forEach(btn => {
+      btn.addEventListener('click', () => applyTheme(btn.dataset.theme));
     });
   </script>
   <script data-goatcounter="https://goatcounter.desculpa.ai/count" async src="//goatcounter.desculpa.ai/count.js"></script>

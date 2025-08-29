@@ -24,7 +24,7 @@
       <button data-theme="dark" class="theme-btn dark-btn">Dark</button>
       <button data-theme="light" class="theme-btn light-btn">Light</button>
       <button data-theme="win95" class="theme-btn win95-btn">Win95</button>
-      <button data-theme="xp" class="theme-btn xp-btn">XP/Aero</button>
+      <button data-theme="xp" class="theme-btn xp-btn">Aero</button>
     </div>
   </nav>
 
@@ -37,7 +37,7 @@
 
   <footer class="footer">
     <span class="footer-text">
-      Nunca mais fique sem resposta. Crie sua desculpa automática agora!
+      Nunca mais fique sem resposta. Crie sua desculpa ai!
     </span>
     <a class="footer-link" href="https://github.com/fematarazzo/desculpaai" target="_blank">
       GitHub
@@ -65,8 +65,18 @@
 
       document.querySelectorAll('.submit-btn').forEach(el => el.style.backgroundColor = t.btn);
 
-      if(name === "win95") document.body.classList.add("win95-font");
-      else document.body.classList.remove("win95-font");
+      if(name === "win95") {
+        document.body.classList.add("win95-font");
+      } else {
+        document.body.classList.remove("win95-font");
+      }
+
+      if(name === "xp") {
+        document.body.classList.add("xp-font");
+      } else {
+        document.body.classList.remove("xp-font");
+      }
+
 
       localStorage.setItem('theme', name);
     }

@@ -89,7 +89,8 @@ body {
   border: 2px solid #fff;
   border-right-color: #808080;
   border-bottom-color: #808080;
-  font-family: "MS Sans Serif", sans-serif;
+  font-family: 'Fixedsys', "MS Sans Serif", Tahoma, sans-serif !important;
+  font-size: 14px;
   box-shadow: inset -1px -1px #000, inset 1px 1px #fff;
   color: black !important;
 }
@@ -112,16 +113,25 @@ body {
 }
 
 .xp-btn {
+  padding: 6px 14px;
   background: linear-gradient(to bottom, #4facfe, #00f2fe);
   color: #fff !important;
-  border: 1px solid #007acc;
+  border: 2px solid #007acc;
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.4);
-  font-family: "Segoe UI", sans-serif;
+  font-family: "Comic Sans MS", "MS Sans Serif", sans-serif !important;
+  font-size: 14px;
   text-shadow: 0 1px 3px rgba(0,0,0,0.6);
 }
 .xp-btn:hover {
   background: linear-gradient(to bottom, #6fb1fc, #2ee8f9);
+}
+
+.xp-font h1,
+.xp-font h2,
+.xp-font .navbar,
+.xp-font .footer {
+  font-family: "Comic Sans MS", "MS Sans Serif", sans-serif !important;
 }
 
 /* ---------------- CONTAINER ---------------- */
@@ -361,14 +371,10 @@ h2 {
     flex-direction: row;
     justify-content: center;
     gap: 4px;
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     text-align: center;
     padding: 8px 15px;
     height: auto;
-  }
-
-  .footer-link {
-    font-size: 0.7rem;
   }
 
   #response-box {

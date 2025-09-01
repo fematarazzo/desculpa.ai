@@ -12,8 +12,6 @@ Porque às vezes a criatividade humana falha, mas a inteligência artificial nã
 - **Analytics:** GoatCounter com SQLite
 - **Deployment:** Fly.io + Docker
 
----
-
 ## 🚀 Como usar localmente
 
 Pré-requisitos: Docker e Go

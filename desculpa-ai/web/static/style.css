@@ -301,6 +301,31 @@ h2 {
   color: #fe8019;
 }
 
+/* ---------------- SHARE WHATSAPP ---------------- */
+
+.share-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #25d366;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s ease-in-out;
+}
+
+.share-btn:hover {
+  background-color: #1ebe5b;
+}
+
+.share-btn svg {
+  flex-shrink: 0;
+}
+
 /* ---------------- RESPONSIVENESS ---------------- */
 @media (max-width: 768px) {
   .navbar {

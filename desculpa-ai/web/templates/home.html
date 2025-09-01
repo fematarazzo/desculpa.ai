@@ -36,10 +36,16 @@
         <button type="submit" class="submit-btn">Enviar</button>
       </div>
     </form>
-    <div id="response-box">
+    <div id="response-box" class="response-box">
       <pre id="response-output"></pre>
       <div id="spinner" class="hidden"></div>
     </div>
+    <button id="share-whatsapp" class="share-btn">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="20" height="20" fill="white">
+        <path d="M16.003 2.001c-7.732 0-14 6.268-14 14 0 2.469.646 4.869 1.879 6.984L2 30l7.219-1.844A13.93 13.93 0 0 0 16.003 30c7.732 0 14-6.268 14-14s-6.268-14-14-14zm0 25.844c-2.242 0-4.422-.586-6.344-1.703l-.453-.266-4.297 1.094 1.141-4.187-.281-.453a11.826 11.826 0 0 1-1.766-6.297c0-6.531 5.313-11.844 11.844-11.844 6.531 0 11.844 5.313 11.844 11.844s-5.313 11.812-11.844 11.812zm6.5-8.844c-.359-.184-2.125-1.047-2.453-1.172-.328-.125-.566-.184-.797.187s-.922 1.172-1.125 1.406-.406.281-.766.094c-.359-.184-1.516-.559-2.891-1.781-1.078-.961-1.812-2.148-2.031-2.508-.219-.359-.023-.555.164-.742.168-.168.359-.438.539-.656.184-.219.246-.367.371-.609.125-.242.062-.453-.031-.641-.094-.184-.797-1.922-1.094-2.633-.289-.695-.586-.602-.797-.602-.203 0-.437-.023-.672-.023s-.617.086-.938.445c-.328.359-1.234 1.203-1.234 2.938s1.266 3.406 1.438 3.641c.184.242 2.484 3.789 6.031 5.312.844.359 1.5.574 2.016.734.844.27 1.609.234 2.219.141.676-.102 2.125-.867 2.422-1.703.297-.836.297-1.555.203-1.703-.086-.148-.328-.242-.688-.422z"/>
+      </svg>
+      <span>Compartilhar</span>
+    </button>
   </div>
 
   <footer class="footer">
@@ -148,6 +154,21 @@
       }
 
       spinner.classList.add('hidden');
+    });
+
+    document.getElementById("share-whatsapp").addEventListener("click", function () {
+      const responseBox = document.getElementById("response-box");
+      const text = responseBox.innerText.trim();
+
+      if (!text) {
+        alert("Nenhum conteúdo disponível para compartilhar.");
+        return;
+      }
+
+      const encodedText = encodeURIComponent(text);
+      const whatsappUrl = `https://wa.me/?text=${encodedText}`;
+
+      window.open(whatsappUrl, "_blank");
     });
   </script>
   <script data-goatcounter="https://goatcounter.desculpa.ai/count" async src="//goatcounter.desculpa.ai/count.js"></script>

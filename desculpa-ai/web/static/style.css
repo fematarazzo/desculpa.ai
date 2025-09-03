@@ -112,6 +112,14 @@ body {
   font-family: 'Fixedsys', "MS Sans Serif", Tahoma, sans-serif !important;
 }
 
+@font-face {
+  font-family: 'ComicSans';
+  src: url('/static/fonts/ComicSans.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 .xp-btn {
   padding: 6px 14px;
   background: linear-gradient(to bottom, #4facfe, #00f2fe);
@@ -119,7 +127,7 @@ body {
   border: 2px solid #007acc;
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.4);
-  font-family: "Comic Sans MS", "MS Sans Serif", sans-serif !important;
+  font-family: 'ComicSansLocal', "Comic Sans MS", "MS Sans Serif", sans-serif !important;
   font-size: 14px;
   text-shadow: 0 1px 3px rgba(0,0,0,0.6);
 }
@@ -131,7 +139,7 @@ body {
 .xp-font h2,
 .xp-font .navbar,
 .xp-font .footer {
-  font-family: "Comic Sans MS", "MS Sans Serif", sans-serif !important;
+  font-family: 'ComicSans', "Comic Sans MS", "MS Sans Serif", sans-serif !important;
 }
 
 /* ---------------- CONTAINER ---------------- */

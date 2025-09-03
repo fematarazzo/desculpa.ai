@@ -9,7 +9,32 @@ import (
 	"fmt"
 	"html/template"
 	"net/http"
+	"path/filepath"
 )
+
+func renderTemplate(w http.ResponseWriter, page string, data any) {
+	files := []string{
+		"web/templates/base.html",
+		filepath.Join("web/templates", page),
+	}
+
+	partials, err := filepath.Glob("web/templates/partials/*.html")
+	if err != nil {
+		http.Error(w, "Erro ao carregar partials: "+err.Error(), http.StatusInternalServerError)
+		return
+	}
+	files = append(files, partials...)
+
+	tmpl, err := template.ParseFiles(files...)
+	if err != nil {
+		http.Error(w, "Erro ao processar template: "+err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	if err := tmpl.ExecuteTemplate(w, "base.html", data); err != nil {
+		http.Error(w, "Erro ao renderizar template: "+err.Error(), http.StatusInternalServerError)
+	}
+}
 
 func registerRoutes(mux *http.ServeMux) {
 	fs := http.FileServer(http.Dir("web/static"))
@@ -23,41 +48,25 @@ func registerRoutes(mux *http.ServeMux) {
 }
 
 func handlerMain(w http.ResponseWriter, r *http.Request) {
-	tmpl, err := template.ParseFiles("web/templates/home.html")
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-
-	tmpl.Execute(w, nil)
+	renderTemplate(w, "home.html", nil)
 }
 
 func handlerContact(w http.ResponseWriter, r *http.Request) {
-	tmpl, err := template.ParseFiles("web/templates/contact.html")
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-
-	tmpl.Execute(w, nil)
+	renderTemplate(w, "contact.html", nil)
 }
 
 func handlerSubmit(w http.ResponseWriter, r *http.Request) {
-	err := r.ParseForm()
-	if err != nil {
+	if r.Method != http.MethodPost {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	if err := r.ParseForm(); err != nil {
 		http.Error(w, "Error when processing form", http.StatusBadRequest)
 		return
 	}
 
-	prompt := r.PostForm.Get("prompt")
-
-	resp, err := callOllama(prompt)
-	if err != nil {
-		http.Error(w, "Ollama error: "+err.Error(), http.StatusInternalServerError)
-		return
-	}
-
-	fmt.Fprintf(w, "gemma3:1b response: %s", resp)
+	w.WriteHeader(http.StatusNoContent)
 }
 
 func handlerStream(w http.ResponseWriter, r *http.Request) {
@@ -85,7 +94,7 @@ func handlerStream(w http.ResponseWriter, r *http.Request) {
 	}
 	defer resp.Body.Close()
 
-	w.Header().Set("Content-Type", "text/event-stream")
+	w.Header().Set("Content-Type", "text/plain; charset=utf-8")
 	w.Header().Set("Cache-Control", "no-cache")
 	w.Header().Set("Connection", "keep-alive")
 

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  {{ template "head.html" . }}
+  <title>{{ block "title" . }}Desculpa.ai 🤖💨{{ end }}</title>
+  <meta name="description" content="{{ block "description" . }}O Desculpa.ai é um assistente especializado em inventar desculpas criativas, engraçadas e convincentes para qualquer situação.{{ end }}">
+</head>
+<body>
+
+  {{ template "navbar.html" . }}
+
+  <div class="container">
+    {{ block "content" . }}{{ end }}
+  </div>
+
+  {{ template "footer.html" . }}
+  {{ template "scripts.html" . }}
+
+</body>
+</html>

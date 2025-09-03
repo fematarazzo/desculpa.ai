@@ -1,127 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/png" href="/static/images/desculpa-ai-icon.png">
-  <title>Desculpa.ai 🤖💨</title>
-  <meta name="description" content="O Desculpa.ai é um assistente especializado em inventar desculpas criativas, engraçadas e convincentes para qualquer situação. Com humor e sarcasmo, ele te ajuda a sair de qualquer aperto.">
-  <link href="/static/style.css" rel="stylesheet">
-</head>
-<body>
+{{ define "title" }}Desculpa.ai 🤖💨{{ end }}
+{{ define "description" }}Crie desculpas criativas com humor e sarcasmo!{{ end }}
 
-  <nav class="navbar">
-    <ul class="nav-links">
-      <li>
-        <a href="/">
-          <img src="/static/images/desculpa-ai-icon.png" alt="desculpa.ai" style="height:24px; width:24px; vertical-align:middle;">
-        </a>
-      </li>
-      <li><a href="/contact">Contato</a></li>
-    </ul>
-
-    <div class="theme-selector">
-      <button data-theme="dark" class="theme-btn dark-btn">Dark</button>
-      <button data-theme="light" class="theme-btn light-btn">Light</button>
-      <button data-theme="win95" class="theme-btn win95-btn">Win95</button>
-      <button data-theme="xp" class="theme-btn xp-btn">Aero</button>
+{{ define "content" }}
+  <h1>Precisa de uma desculpa?<br> A gente inventa pra você 😅</h1>
+  <form id="prompt-form" action="/submit" method="POST">
+    <div class="prompt">
+      <textarea name="prompt" id="prompt" placeholder="Digite sua desculpa..." rows="3"></textarea>
+      <button type="submit" class="submit-btn">Enviar</button>
     </div>
-  </nav>
-
-  <div class="container">
-    <h1>Precisa de uma desculpa?<br> A gente inventa pra você 😅</h1>
-    <form id="prompt-form" action="/submit" method="POST">
-      <div class="prompt">
-        <textarea name="prompt" id="prompt" placeholder="Digite sua desculpa..." rows="3"></textarea>
-        <button type="submit" class="submit-btn">Enviar</button>
-      </div>
-    </form>
-    <div id="response-box" class="response-box">
-      <pre id="response-output"></pre>
-      <div id="spinner" class="hidden"></div>
-    </div>
-    <button id="share-whatsapp" class="share-btn">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="20" height="20" fill="white">
-        <path d="M16.003 2.001c-7.732 0-14 6.268-14 14 0 2.469.646 4.869 1.879 6.984L2 30l7.219-1.844A13.93 13.93 0 0 0 16.003 30c7.732 0 14-6.268 14-14s-6.268-14-14-14zm0 25.844c-2.242 0-4.422-.586-6.344-1.703l-.453-.266-4.297 1.094 1.141-4.187-.281-.453a11.826 11.826 0 0 1-1.766-6.297c0-6.531 5.313-11.844 11.844-11.844 6.531 0 11.844 5.313 11.844 11.844s-5.313 11.812-11.844 11.812zm6.5-8.844c-.359-.184-2.125-1.047-2.453-1.172-.328-.125-.566-.184-.797.187s-.922 1.172-1.125 1.406-.406.281-.766.094c-.359-.184-1.516-.559-2.891-1.781-1.078-.961-1.812-2.148-2.031-2.508-.219-.359-.023-.555.164-.742.168-.168.359-.438.539-.656.184-.219.246-.367.371-.609.125-.242.062-.453-.031-.641-.094-.184-.797-1.922-1.094-2.633-.289-.695-.586-.602-.797-.602-.203 0-.437-.023-.672-.023s-.617.086-.938.445c-.328.359-1.234 1.203-1.234 2.938s1.266 3.406 1.438 3.641c.184.242 2.484 3.789 6.031 5.312.844.359 1.5.574 2.016.734.844.27 1.609.234 2.219.141.676-.102 2.125-.867 2.422-1.703.297-.836.297-1.555.203-1.703-.086-.148-.328-.242-.688-.422z"/>
-      </svg>
-      <span>Compartilhar</span>
-    </button>
+  </form>
+  <div id="response-box" class="response-box">
+    <pre id="response-output"></pre>
+    <div id="spinner" class="hidden"></div>
   </div>
-
-  <footer class="footer">
-    <span class="footer-text">
-      Nunca mais fique sem resposta. Crie sua desculpa ai!
-    </span>
-    <a class="footer-link" href="https://github.com/fematarazzo/desculpa.ai" target="_blank">
-      GitHub
-    </a>
-  </footer>
-
-  <script src="/static/script.js"></script>
-  <script>
-    const form = document.getElementById('prompt-form');
-    const output = document.getElementById('response-output');
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      output.textContent = "";
-
-      const prompt = document.getElementById('prompt').value;
-
-      const res = await fetch('/stream', {
-        method: 'POST',
-        body: new URLSearchParams({ prompt })
-      });
-
-      const reader = res.body.getReader();
-      const decoder = new TextDecoder();
-
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-        output.textContent += decoder.decode(value, { stream: true });
-      }
-    });
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-
-      output.textContent = "";
-      spinner.classList.remove('hidden');
-
-      const prompt = document.getElementById('prompt').value;
-      const res = await fetch('/stream', {
-        method: 'POST',
-        body: new URLSearchParams({ prompt })
-      });
-
-      const reader = res.body.getReader();
-      const decoder = new TextDecoder();
-
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-        output.textContent += decoder.decode(value, { stream: true });
-      }
-
-      spinner.classList.add('hidden');
-    });
-
-    document.getElementById("share-whatsapp").addEventListener("click", function () {
-      const responseBox = document.getElementById("response-box");
-      const text = responseBox.innerText.trim();
-
-      if (!text) {
-        alert("Nenhum conteúdo disponível para compartilhar.");
-        return;
-      }
-
-      const encodedText = encodeURIComponent(text);
-      const whatsappUrl = `https://wa.me/?text=${encodedText}`;
-
-      window.open(whatsappUrl, "_blank");
-    });
-  </script>
-  <script data-goatcounter="https://goatcounter.desculpa.ai/count" async src="//goatcounter.desculpa.ai/count.js"></script>
-</body>
-</html>
+  <button id="share-whatsapp" class="share-btn">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="20" height="20" fill="white">
+      <path d="M16.003 2.001c-7.732 0-14 6.268-14 14 0 2.469.646 4.869 1.879 6.984L2 30l7.219-1.844A13.93 13.93 0 0 0 16.003 30c7.732 0 14-6.268 14-14s-6.268-14-14-14zm0 25.844c-2.242 0-4.422-.586-6.344-1.703l-.453-.266-4.297 1.094 1.141-4.187-.281-.453a11.826 11.826 0 0 1-1.766-6.297c0-6.531 5.313-11.844 11.844-11.844 6.531 0 11.844 5.313 11.844 11.844s-5.313 11.812-11.844 11.812zm6.5-8.844c-.359-.184-2.125-1.047-2.453-1.172-.328-.125-.566-.184-.797.187s-.922 1.172-1.125 1.406-.406.281-.766.094c-.359-.184-1.516-.559-2.891-1.781-1.078-.961-1.812-2.148-2.031-2.508-.219-.359-.023-.555.164-.742.168-.168.359-.438.539-.656.184-.219.246-.367.371-.609.125-.242.062-.453-.031-.641-.094-.184-.797-1.922-1.094-2.633-.289-.695-.586-.602-.797-.602-.203 0-.437-.023-.672-.023s-.617.086-.938.445c-.328.359-1.234 1.203-1.234 2.938s1.266 3.406 1.438 3.641c.184.242 2.484 3.789 6.031 5.312.844.359 1.5.574 2.016.734.844.27 1.609.234 2.219.141.676-.102 2.125-.867 2.422-1.703.297-.836.297-1.555.203-1.703-.086-.148-.328-.242-.688-.422z"/>
+    </svg>
+    <span>Compartilhar</span>
+  </button>
+{{ end }}

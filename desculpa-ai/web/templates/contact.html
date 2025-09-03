@@ -1,50 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/png" href="/static/images/desculpa-ai-icon.png">
-  <title>Desculpa.ai 🤖💨</title>
-  <meta name="description" content="O Desculpa.ai é um assistente especializado em inventar desculpas criativas, engraçadas e convincentes para qualquer situação. Com humor e sarcasmo, ele te ajuda a sair de qualquer aperto.">
-  <link href="/static/style.css" rel="stylesheet">
-</head>
-<body>
+{{ define "title" }}Desculpa.ai 🤖💨{{ end }}
+{{ define "description" }}Fale com o Desculpa.ai, mande suas dúvidas e críticas.{{ end }}
 
-  <nav class="navbar">
-    <ul class="nav-links">
-      <li>
-        <a href="/">
-          <img src="/static/images/desculpa-ai-icon.png" alt="desculpa.ai" style="height:24px; width:24px; vertical-align:middle;">
-        </a>
-      </li>
-      <li><a href="/contact">Contato</a></li>
-    </ul>
-
-    <div class="theme-selector">
-      <button data-theme="dark" class="theme-btn dark-btn">Dark</button>
-      <button data-theme="light" class="theme-btn light-btn">Light</button>
-      <button data-theme="win95" class="theme-btn win95-btn">Win95</button>
-      <button data-theme="xp" class="theme-btn xp-btn">Aero</button>
-    </div>
-  </nav>
-
-  <div class="container">
-    <h1>Fale com o desculpa.ai!</h1>
-    <h2>Dúvidas ou críticas? Desculpa ai! Mande um e-mail para
-      <a href="mailto:contato@desculpa.ai" class="highlight-email">contato@desculpa.ai</a>
-    </h2>
-  </div>
-
-  <footer class="footer">
-    <span class="footer-text">
-      Nunca mais fique sem resposta. Crie sua desculpa ai!
-    </span>
-    <a class="footer-link" href="https://github.com/fematarazzo/desculpa.ai" target="_blank">
-      GitHub
-    </a>
-  </footer>
-
-  <script src="/static/script.js"></script>
-  <script data-goatcounter="https://goatcounter.desculpa.ai/count" async src="//goatcounter.desculpa.ai/count.js"></script>
-</body>
-</html>
+{{ define "content" }}
+  <h1>Fale com o desculpa.ai!</h1>
+  <h2>Dúvidas ou críticas? Desculpa ai! Mande um e-mail para
+    <a href="mailto:contato@desculpa.ai" class="highlight-email">contato@desculpa.ai</a>
+  </h2>
+{{ end }}

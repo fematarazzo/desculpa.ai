@@ -8,7 +8,7 @@ Porque às vezes a criatividade humana falha, mas a inteligência artificial nã
 
 - **Backend:** Go
 - **Frontend:** HTML, CSS, JS
-- **Modelo de IA:** Ollama (Gemma3 1B)
+- **Modelo de IA:** Ollama (Embedding Gemma)
 - **Analytics:** GoatCounter com SQLite
 - **Deployment:** Fly.io + Docker
 

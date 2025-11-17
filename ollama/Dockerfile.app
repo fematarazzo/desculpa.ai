@@ -8,4 +8,4 @@ EXPOSE 11434
 
 ENTRYPOINT ["/bin/sh", "-c"]
 
-CMD ["ollama serve & sleep 5 && ollama pull gemma3:1b && wait"]
+CMD ["ollama serve & sleep 5 && ollama pull embeddinggemma && wait"]
